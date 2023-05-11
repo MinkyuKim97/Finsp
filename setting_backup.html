@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Finsp</title>
+
+  <link rel="stylesheet" type="text/css" href="style2.css">
+
+</head>
+
+<body>
+  <form id="search-form">
+    <input type="text" id="search-input" placeholder=(country/state)>
+    <!-- <input type="text" id="place" name="place"> -->
+    <button type="submit" id="search-button">Search</button>
+  </form>
+
+  <br>
+  <!-- <input type="submit" value="Submit"> -->
+
+  <!-- <a href="javascript:void(0)" onclick="pintSearch()">start</a> -->
+  <a href="javascript:void(0)" onclick="start()">start</a>
+  <!-- <a href="#" onclick="pinterestSearch()">Call Response</a> -->
+  <button onclick="pinterestSearch()">Pinterest Search</button>
+
+  <a href="http://www.pinterest.com/pin/14496030041168458" download>Download Image</a>
+  <button id="downloadImage"> Download Image </button>
+  <a href='https://i.pinimg.com/originals/e3/1f/d5/e31fd59724e7d8761fd9d4ebec9607bb.jpg'
+    download="link.download">Download image</a>
+</body>
+</html>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="node_modules/push.js/bin/push.min.js"></script>
+<script src="node_modules/push.js/bin/serviceWorker.min.js"></script>
+<script type="module" src="sketch.js"></script>
+<script>
+
+  const form = document.getElementById('search-form');
+  const input = document.getElementById('search-input');
+  let searchCheck = 0;
+  const searchTerm = input.value;
+
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault(); // prevent the form from submitting normally
+
+    console.log("Speak");
+    console.log(input.value);
+    searchCheck = 1;
+    console.log(searchCheck);
+  });
+
+
+
+
+
+
+
+  var newWin;
+
+  function start() {
+    console.log("Push on loading");
+    Push.create(input.value, {
+      body: "You got it!",
+      // icon: data.result.results[10].image_url,
+      icon: 'https://cdn-icons-png.flaticon.com/512/48/48968.png',
+      timeout: 4000,
+      onClick: function () {
+        window.focus();
+        newWin = window.open('getcha.html', 'About us', 'width=800, height=500');
+        document.onmousedown = focusPopup;
+        document.onkeyup = focusPopup;
+        document.onmousemove = focusPopup;
+
+        this.close();
+      }
+    });
+  }
+  function focusPopup() {
+    if (!newWin.close) {
+      newWin.focus();
+    }
+  }
+</script>
